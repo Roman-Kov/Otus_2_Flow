@@ -2,6 +2,7 @@ package otus.homework.flow
 
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
+import kotlin.math.pow
 
 @ExperimentalCoroutinesApi
 class SampleInteractor(
@@ -17,9 +18,16 @@ class SampleInteractor(
      * 5) берет 3 первых числа
      * 6) возвращает результат
      */
-    fun task1(): Flow<String> {
-        return flowOf()
-    }
+    fun task1(): Flow<String> =
+        sampleRepository.produceNumbers()
+            .map { number ->
+                val multiplier = 5
+                number * multiplier
+            }.filter { number ->
+                number > 20 && number % 2 != 0
+            }.map { number ->
+                "$number won"
+            }.take(3)
 
     /**
      * Классическая задача FizzBuzz с небольшим изменением.
