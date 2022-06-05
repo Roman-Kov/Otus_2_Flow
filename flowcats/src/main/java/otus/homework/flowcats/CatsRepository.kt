@@ -1,7 +1,9 @@
 package otus.homework.flowcats
 
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.withContext
 import kotlin.random.Random
 
 class CatsRepository(
@@ -14,7 +16,9 @@ class CatsRepository(
             AppResult.createFromSuspend {
                 getCatFacts()
             }.let { catFactResult ->
-                emit(catFactResult)
+                withContext(Dispatchers.Main) {
+                    emit(catFactResult)
+                }
             }
         }
     }

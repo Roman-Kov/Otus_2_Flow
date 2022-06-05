@@ -1,6 +1,7 @@
 package otus.homework.flowcats
 
 import android.util.Log
+import java.util.concurrent.CancellationException
 
 sealed class AppResult<out T : Any> {
 
@@ -15,6 +16,8 @@ sealed class AppResult<out T : Any> {
             call()?.let {
                 Success(it)
             } ?: Empty
+        } catch (e: CancellationException) {
+            throw e
         } catch (e: Throwable) {
             Log.e("Error", e.message ?: "error")
             Failure(e)
