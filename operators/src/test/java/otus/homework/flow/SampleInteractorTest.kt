@@ -17,8 +17,8 @@ import org.junit.Test
 @ExperimentalCoroutinesApi
 class SampleInteractorTest {
 
-    val dotsRepository = mockk<SampleRepository>(relaxed = true)
-    val dotsInteractor = SampleInteractor(dotsRepository)
+    private val dotsRepository = mockk<SampleRepository>(relaxed = true)
+    private val dotsInteractor = SampleInteractor(dotsRepository)
 
     @Test
     fun `test task1`() = runBlockingTest {
