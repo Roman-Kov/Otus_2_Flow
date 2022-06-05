@@ -1,9 +1,7 @@
 package otus.homework.flowcats
 
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.withContext
 import kotlin.random.Random
 
 class CatsRepository(
@@ -16,9 +14,7 @@ class CatsRepository(
             AppResult.createFromSuspend {
                 getCatFacts()
             }.let { catFactResult ->
-                withContext(Dispatchers.Main) {
-                    emit(catFactResult)
-                }
+                emit(catFactResult)
             }
         }
     }
@@ -27,7 +23,7 @@ class CatsRepository(
         delay(refreshIntervalMs)
         // добавляем фейковую ошибку
         val hasError = Random.nextInt(2) % 2 == 0
-        if(hasError) throw Throwable("Get cats fact error")
+        if (hasError) throw Throwable("Get cats fact error")
         return catsService.getCatFact()
     }
 }
